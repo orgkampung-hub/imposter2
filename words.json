@@ -82,12 +82,12 @@
   {
     "kategori": "Haiwan",
     "sivil": "Kucing Parsi",
-    "imposter": "Ada Ekor"
+    "imposter": "Bermisai"
   },
   {
-    "kategori": "Rancangan TV",
-    "sivil": "Berita TV3",
-    "imposter": "Ada Gambar"
+    "kategori": "Haiwan",
+    "sivil": "Orang Utan",
+    "imposter": "Atas Pokok"
   },
   {
     "kategori": "Hobi & Sukan",
@@ -142,7 +142,7 @@
     "imposter": "Boleh Lipat"
   },
   {
-    "kategori": "Aksesori",
+    "kategori": "Gadjet",
     "sivil": "Earphone Bluetooth",
     "imposter": "Sunyi tapi bising"
   },
@@ -200,5 +200,20 @@
     "kategori": "Alat",
     "sivil": "Tangga Lipat Aluminium",
     "imposter": "Boleh Panjat"
+  },
+  {
+    "kategori": "Haiwan",
+    "sivil": "Burung Unta",
+    "imposter": "Tidak Boleh Terbang"
+  },
+  {
+    "kategori": "Barangan",
+    "sivil": "Cermin Dinding",
+    "imposter": "Nampak Sama"
+  },
+  {
+    "kategori": "Buah-Buahan",
+    "sivil": "Salak",
+    "imposter": "Berduri"
   }
 ]

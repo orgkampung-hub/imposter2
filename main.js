@@ -30,6 +30,9 @@ createApp({
         let senaraiConn = []; 
         let connToHost = null; 
         let databasePerkataan = []; 
+        
+        // --- LOGIK ANTI-ULANG PERKATAAN ---
+        let bakiPerkataan = []; 
 
         onMounted(() => {
             const savedName = localStorage.getItem('imp_user_name');
@@ -171,26 +174,26 @@ createApp({
             } catch (e) {
                 databasePerkataan = [{ kategori: "Makanan", sivil: "Nasi Lemak", imposter: "Bersambal" }];
             }
+            // Isikan bakul penjejak baki perkataan pada permulaan game
+            bakiPerkataan = [...databasePerkataan];
         };
 
         const mulaPermainan = () => {
             const totalPemain = senaraiPemain.value.length;
             if (totalPemain < 2) return; 
 
-            // Had keselamatan: Jika pemain sikit tapi pilih 2 Imposter, paksa jadi 1 Imposter sahaja.
+            // Had keselamatan bilangan imposter
             let impostersToAssign = jumlahImposterPilihan.value;
             if (impostersToAssign >= totalPemain) {
                 impostersToAssign = Math.max(1, totalPemain - 1);
             }
 
-            // Atur susunan indeks rawak (Fisher-Yates Shuffle)
+            // Kocok senarai indeks pemain (Fisher-Yates Shuffle)
             let indeksArray = Array.from({ length: totalPemain }, (_, i) => i);
             for (let i = indeksArray.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [indeksArray[i], indeksArray[j]] = [indeksArray[j], indeksArray[i]];
             }
-
-            // Ambil N-indeks pertama dari array teracak untuk diset sebagai Imposter
             const indeksImposters = indeksArray.slice(0, impostersToAssign);
 
             senaraiPemain.value.forEach((p, idx) => {
@@ -199,10 +202,21 @@ createApp({
                 p.pilihanUndi = '';
             });
 
-            const itemRawak = databasePerkataan[Math.floor(Math.random() * databasePerkataan.length)];
-            kategoriKunci.value = itemRawak.kategori;
-            kataKunci.value = itemRawak.sivil;
-            kataKunciImposter.value = itemRawak.imposter;
+            // --- PROSES CABUT & BUANG PERKATAAN UNTUK ANTI-ULANG ---
+            if (bakiPerkataan.length === 0) {
+                // Jika semua perkataan dalam bakul dah habis digunakan, isi semula bakul baru
+                bakiPerkataan = [...databasePerkataan];
+            }
+            
+            // Pilih satu index secara rawak daripada baki perkataan yang ada
+            const indexRawakPerkataan = Math.floor(Math.random() * bakiPerkataan.length);
+            
+            // Cabut keluar (splice) item tersebut supaya ia dibuang terus dari bakiPerkataan
+            const itemTerpilih = bakiPerkataan.splice(indexRawakPerkataan, 1)[0];
+
+            kategoriKunci.value = itemTerpilih.kategori;
+            kataKunci.value = itemTerpilih.sivil;
+            kataKunciImposter.value = itemTerpilih.imposter;
 
             const saya = senaraiPemain.value.find(p => p.id === myId.value);
             myRole.value = saya.role;
@@ -280,7 +294,6 @@ createApp({
             const senaraiImposter = senaraiPemain.value.filter(p => p.role === 'Imposter');
             const namaImposters = senaraiImposter.map(i => i.nama).join(', ');
 
-            // Cari siapa yang dapat undian terbanyak di meja makan
             let idUndianTertinggi = '';
             let nilaiMax = -1;
             let isSeri = false;
@@ -304,7 +317,6 @@ createApp({
             const mangsaUndi = senaraiPemain.value.find(p => p.id === idUndianTertinggi);
 
             if (!isSeri && mangsaUndi && mangsaUndi.role === 'Imposter') {
-                // Sivil berjaya teka salah seorang Imposter
                 mangsaUndi.point -= 1;
                 ringkasan += `💥 KANTOI! Meja makan berjaya menyingkirkan Imposter (${mangsaUndi.nama}).\n\n📊 Kemaskini Mata:\n`;
                 
@@ -317,7 +329,6 @@ createApp({
                             ringkasan += `- ${p.nama}: 0 Point\n`;
                         }
                     } else {
-                        // Imposter lain yang tidak tertangkap dapat point selamat
                         if (p.id !== idUndianTertinggi) {
                             p.point += 2;
                             ringkasan += `- ${p.nama} (Imposter Terlepas): +2 Point\n`;
@@ -327,7 +338,6 @@ createApp({
                     }
                 });
             } else {
-                // Imposter selamat (Sivil salah undi atau undian seri)
                 ringkasan += `🎭 TERLEPAS! Imposter berjaya memperdayakan ahli meja.\n`;
                 if (isSeri) ringkasan += `(Undian tertinggi berakhir dengan keputusan seri!)\n`;
                 
