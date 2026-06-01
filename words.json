@@ -97,9 +97,8 @@
   {
     "kategori": "Alat Tulis",
     "sivil": "Pensel 2B",
-    "imposter": "Boleh Pegang"
+    "imposter": "Tajam Tapi Lembut"
   },
-
 
   {
     "kategori": "Makanan",
@@ -127,7 +126,7 @@
     "imposter": "Guna Air"
   },
   {
-    "kategori": "Alat Tulis",
+    "kategori": "Alat",
     "sivil": "Gam Gajah",
     "imposter": "Dalam Botol"
   },
@@ -142,7 +141,7 @@
     "imposter": "Boleh Lipat"
   },
   {
-    "kategori": "Gadjet",
+    "kategori": "Gajet",
     "sivil": "Earphone Bluetooth",
     "imposter": "Sunyi tapi bising"
   },
@@ -164,12 +163,12 @@
   {
     "kategori": "Pengangkutan",
     "sivil": "Bas Ekspres",
-    "imposter": "Ada Cermin"
+    "imposter": "Ada Cermin Besar"
   },
   {
     "kategori": "Barangan",
     "sivil": "Pisau Pemotong Daging",
-    "imposter": "Benda Berat"
+    "imposter": "Benda Tajam"
   },
   {
     "kategori": "Hobi & Sukan",
@@ -215,5 +214,10 @@
     "kategori": "Buah-Buahan",
     "sivil": "Salak",
     "imposter": "Berduri"
+  },
+  {
+    "kategori": "Tempat & Landmark",
+    "sivil": "Stesen Bas",
+    "imposter": "Suka Menunggu"
   }
 ]
