@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imposter Party PWA</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <header>
+            <h1>🎭 IMPOSTER PARTY</h1>
+            <div v-if="myName" class="user-badge">👤 {{ myName }} <span v-if="myId">({{ myId }})</span></div>
+        </header>
+
+        <main class="card">
+            <!-- 1. SKRIN LOGIN -->
+            <section v-if="screen === 'login'">
+                <h2>Selamat Datang</h2>
+                <p>Masukkan nama anda untuk bermula. Tiada pendaftaran diperlukan.</p>
+                <div class="form-group">
+                    <input type="text" v-model="myName" placeholder="Nama Anda" maxlength="12">
+                </div>
+                <button @click="handleLogin" :disabled="!myName.trim()" class="btn btn-block">Masuk Game</button>
+            </section>
+
+            <!-- 2. SKRIN MENU UTAMA -->
+            <section v-if="screen === 'menu'">
+                <h2>Menu Utama</h2>
+                <div class="menu-actions">
+                    <div class="host-panel">
+                        <h3>Mula Sebagai Host</h3>
+                        
+                        <!-- Pemilih Had Pemain -->
+                        <div class="modern-selector-container">
+                            <label class="selector-label">Had Maksimum Pemain</label>
+                            <div class="modern-selector">
+                                <button v-for="n in 6" 
+                                        :key="n + 2" 
+                                        type="button"
+                                        @click="maxPlayers = n + 2" 
+                                        :class="{ 'active': maxPlayers === n + 2 }"
+                                        class="selector-btn">
+                                    {{ n + 2 }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- BAHAGIAN BAHARU: Pemilih Bilangan Imposter -->
+                        <div class="modern-selector-container">
+                            <label class="selector-label">Bilangan Imposter</label>
+                            <div class="modern-selector">
+                                <button type="button" @click="jumlahImposterPilihan = 1" :class="{ 'active': jumlahImposterPilihan === 1 }" class="selector-btn">1 Imposter</button>
+                                <button type="button" @click="jumlahImposterPilihan = 2" :class="{ 'active': jumlahImposterPilihan === 2 }" class="selector-btn">2 Imposter</button>
+                            </div>
+                        </div>
+                        
+                        <button @click="buatBilik" class="btn btn-success btn-block">Buat Bilik Baru</button>
+                    </div>
+
+                    <div class="divider">ATAU</div>
+
+                    <div class="join-panel">
+                        <h3>Sertai Rakan Meja</h3>
+                        <div class="form-group">
+                            <input type="text" v-model="peerIdInput" placeholder="4-Aksara Kod Bilik" class="uppercase">
+                        </div>
+                        <button @click="sertaiBilik" :disabled="!peerIdInput.trim()" class="btn btn-primary btn-block">Join Bilik</button>
+                    </div>
+                </div>
+                <button @click="padamNama" class="btn btn-link">Tukar Nama</button>
+            </section>
+
+            <!-- 3. SKRIN LOBBY -->
+            <section v-if="screen === 'lobby'">
+                <div class="lobby-header">
+                    <h2>Bilik: <span class="highlight">{{ kodBilik }}</span></h2>
+                    <p class="status-text" v-if="isHost">👤 Anda adalah Host bilik ini</p>
+                    <p class="status-text" v-else>⏳ Menunggu Host memulakan game...</p>
+                </div>
+
+                <div class="player-list-section">
+                    <h3>Pemain Terhubung ({{ senaraiPemain.length }} / {{ maxPlayers }})</h3>
+                    <p class="text-muted mgb-10">Konfigurasi Game: <span class="highlight">{{ jumlahImposterPilihan }} Imposter</span></p>
+                    <ul class="player-list">
+                        <li v-for="p in senaraiPemain" :key="p.id" :class="{ 'is-me': p.id === myId }">
+                            <span>{{ p.nama }}</span>
+                            <span class="badge" v-if="p.id === myId">Anda</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div v-if="isHost" class="lobby-actions">
+                    <button @click="mulaPermainan" :disabled="senaraiPemain.length < 2" class="btn btn-success btn-block">
+                        🚀 Mula Game (Min 2 Orang)
+                    </button>
+                </div>
+                <button @click="keluarGame" class="btn btn-danger btn-block mgt-10">Keluar</button>
+            </section>
+
+            <!-- 4. SKRIN GAMEPLAY -->
+            <section v-if="screen === 'game'">
+                <div class="game-header">
+                    <div class="word-card">
+                        <p class="kategori">Kategori: <strong>{{ kategoriKunci }}</strong></p>
+                        
+                        <!-- Bahagian Sembunyi Kad Peranan + Perkataan (Satu Box Sekali Gus) -->
+                        <div class="secret-word-container">
+                            <div class="word-blur-box" :class="{ 'reveal': isRevealed }">
+                                <!-- Status Peranan Tersembunyi -->
+                                <div class="role-badge" :class="myRole.toLowerCase()">
+                                    Peranan Anda: <span>{{ myRole }}</span>
+                                </div>
+                                
+                                <!-- Teks Perkataan Tersembunyi -->
+                                <h2 v-if="myRole === 'Sivil'" class="word-text">🔑 Perkataan: <span class="highlight">{{ kataKunci }}</span></h2>
+                                <h2 v-else class="word-text">🕵️ Perkataan: <span class="highlight">{{ kataKunciImposter }}</span></h2>
+                            </div>
+                            
+                            <!-- Butang Utama Pengaktif Amaran/Intip -->
+                            <button @touchstart.prevent="isRevealed = true" 
+                                    @touchend="isRevealed = false"
+                                    @mousedown="isRevealed = true"
+                                    @mouseup="isRevealed = false"
+                                    @mouseleave="isRevealed = false"
+                                    class="btn btn-reveal">
+                                {{ isRevealed ? '🔴 Lepas untuk Sorok Status' : '👁️ Tekan & Tahan untuk Intip Status' }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fasa Perbincangan -->
+                <div v-if="statusGame === 'perbincangan'" class="fasa-section text-center">
+                    <div class="timer-box">💬 Fasa Perbincangan Lisan</div>
+                    <p class="instruction">Sila ambil giliran untuk menerangkan perkataan anda di meja makan tanpa menyebut perkataan tersebut secara langsung!</p>
+                    <button v-if="isHost" @click="tukarFasaUndian" class="btn btn-primary btn-block">Tamat Perbincangan & Undi</button>
+                </div>
+
+                <!-- Fasa Undian -->
+                <div v-if="statusGame === 'undian'" class="fasa-section">
+                    <h3 class="text-center text-warning">🗳️ Sila Pilih Suspek Imposter!</h3>
+                    <p class="instruction text-center" v-if="sudahUndi">Undian anda telah dihantar. Menunggu keputusan Host...</p>
+                    <p class="instruction text-center" v-else>Klik pada nama pemain yang anda rasa bertindak sebagai Imposter.</p>
+                    
+                    <div class="voting-grid">
+                        <button v-for="p in senaraiPemain" 
+                                :key="p.id" 
+                                @click="mengundi(p.id)"
+                                :disabled="p.id === myId"
+                                class="btn btn-outline"
+                                :class="{ 'btn-selected': pilihanSaya === p.id }">
+                            {{ p.nama }}
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. SKRIN KEPUTUSAN ROUND -->
+            <section v-if="screen === 'result'">
+                <h2>Keputusan Round</h2>
+                
+                <div class="result-message pre-wrap">{{ maklumatTamat }}</div>
+
+                <div class="leaderboard-section">
+                    <h3>🏆 Kedudukan Mata Semasa</h3>
+                    <table class="table-score">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Mata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="p in susunPemain" :key="p.id" :class="{ 'is-me': p.id === myId }">
+                                <td>{{ p.nama }}</td>
+                                <td class="text-bold">{{ p.point }} Pt</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div v-if="isHost" class="result-actions">
+                    <button @click="nextRound" class="btn btn-success btn-block">🔄 Round Seterusnya</button>
+                </div>
+                <p v-else class="text-center text-muted">Menunggu Host memulakan round seterusnya...</p>
+                
+                <button @click="keluarGame" class="btn btn-danger btn-block mgt-10">Tamatkan Semua & Bersurai</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

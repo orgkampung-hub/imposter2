@@ -1,0 +1,204 @@
+[
+  {
+    "kategori": "Automotif",
+    "sivil": "Perodua Myvi",
+    "imposter": "jiwa kelajuan"
+  },
+  {
+    "kategori": "Makanan",
+    "sivil": "Nasi Lemak",
+    "imposter": "Bersambal"
+  },
+  {
+    "kategori": "Automotif",
+    "sivil": "Honda RS-X",
+    "imposter": "Warna Merah"
+  },
+  {
+    "kategori": "Gajet",
+    "sivil": "iPhone",
+    "imposter": "Skrin Sentuh"
+  },
+  {
+    "kategori": "Gajet",
+    "sivil": "Powerbank",
+    "imposter": "Banyak Saiz"
+  },
+  {
+    "kategori": "Makanan",
+    "sivil": "Roti Canai",
+    "imposter": "Atas Atas Meja"
+  },
+  {
+    "kategori": "Makanan",
+    "sivil": "Teh Tarik",
+    "imposter": "Panas"
+  },
+  {
+    "kategori": "Barangan",
+    "sivil": "Kipas Siling",
+    "imposter": "Tinggi"
+  },
+  {
+    "kategori": "Barangan",
+    "sivil": "Peti Sejuk",
+    "imposter": "Ada Pintu"
+  },
+  {
+    "kategori": "Pengangkutan",
+    "sivil": "Motosikal LC135",
+    "imposter": "Isi Minyak"
+  },
+  {
+    "kategori": "Pengangkutan",
+    "sivil": "Tren LRT",
+    "imposter": "Bawa Penumpang"
+  },
+  {
+    "kategori": "Buah-buahan",
+    "sivil": "Durian D24",
+    "imposter": "Kulit Keras"
+  },
+  {
+    "kategori": "Pakaian",
+    "sivil": "Baju Melayu",
+    "imposter": "Kain Fabrik"
+  },
+  {
+    "kategori": "Tempat & Landmark",
+    "sivil": "Menara KLCC",
+    "imposter": "Bangunan Tinggi"
+  },
+  {
+    "kategori": "Barangan",
+    "sivil": "Periuk Nasi Elektrik",
+    "imposter": "Guna Wayar"
+  },
+  {
+    "kategori": "Permainan",
+    "sivil": "PlayStation 5",
+    "imposter": "Main Game"
+  },
+  {
+    "kategori": "Haiwan",
+    "sivil": "Kucing Parsi",
+    "imposter": "Ada Ekor"
+  },
+  {
+    "kategori": "Rancangan TV",
+    "sivil": "Berita TV3",
+    "imposter": "Ada Gambar"
+  },
+  {
+    "kategori": "Hobi & Sukan",
+    "sivil": "Kasut Bola Nike",
+    "imposter": "Kena Sarung"
+  },
+  {
+    "kategori": "Alat Tulis",
+    "sivil": "Pensel 2B",
+    "imposter": "Boleh Pegang"
+  },
+
+
+  {
+    "kategori": "Makanan",
+    "sivil": "Sate Ayam",
+    "imposter": "Cucuk Lidi"
+  },
+  {
+    "kategori": "Makanan",
+    "sivil": "Kopi Ais Ikat Tepi",
+    "imposter": "Dalam Plastik"
+  },
+  {
+    "kategori": "Automotif",
+    "sivil": "Perodua Kancil",
+    "imposter": "Kecil"
+  },
+  {
+    "kategori": "Gajet & Hiburan",
+    "sivil": "Smart TV",
+    "imposter": "Guna Remote"
+  },
+  {
+    "kategori": "Barangan",
+    "sivil": "Mesin Basuh",
+    "imposter": "Guna Air"
+  },
+  {
+    "kategori": "Alat Tulis",
+    "sivil": "Gam Gajah",
+    "imposter": "Dalam Botol"
+  },
+  {
+    "kategori": "Barangan",
+    "sivil": "Dapur Gas",
+    "imposter": "Panas Berapi"
+  },
+  {
+    "kategori": "Barangan",
+    "sivil": "Dompet Kulit",
+    "imposter": "Boleh Lipat"
+  },
+  {
+    "kategori": "Aksesori",
+    "sivil": "Earphone Bluetooth",
+    "imposter": "Sunyi tapi bising"
+  },
+  {
+    "kategori": "Barangan",
+    "sivil": "Seterika Wap",
+    "imposter": "Rasa Panas"
+  },
+  {
+    "kategori": "Pasar Malam",
+    "sivil": "Apam Balik",
+    "imposter": "Lipat Dua"
+  },
+  {
+    "kategori": "Tempat & Kedai",
+    "sivil": "Kedai Mamak",
+    "imposter": "Ada Kerusi"
+  },
+  {
+    "kategori": "Pengangkutan",
+    "sivil": "Bas Ekspres",
+    "imposter": "Ada Cermin"
+  },
+  {
+    "kategori": "Barangan",
+    "sivil": "Pisau Pemotong Daging",
+    "imposter": "Benda Berat"
+  },
+  {
+    "kategori": "Hobi & Sukan",
+    "sivil": "Basikal Lajak",
+    "imposter": "Ada Kayuh"
+  },
+  {
+    "kategori": "Pakaian",
+    "sivil": "Kain Pelikat",
+    "imposter": "Corak Petak"
+  },
+  {
+    "kategori": "Kesihatan",
+    "sivil": "Minyak Cap Kapak",
+    "imposter": "Bau Kuat"
+  },
+  {
+    "kategori": "Barangan Kedai",
+    "sivil": "Tong Gas Petronas",
+    "imposter": "Warna Hijau"
+  },
+  {
+    "kategori": "Haiwan",
+    "sivil": "Cicak Dinding",
+    "imposter": "Boleh Merangkak"
+  },
+  {
+    "kategori": "Alat",
+    "sivil": "Tangga Lipat Aluminium",
+    "imposter": "Boleh Panjat"
+  }
+]

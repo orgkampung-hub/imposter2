@@ -1,0 +1,308 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+[v-cloak] { display: none; }
+
+body {
+    background-color: #121214;
+    color: #e1e1e6;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#app {
+    width: 100%;
+    max-width: 500px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 1.5rem;
+    color: #04d361;
+    letter-spacing: 1px;
+}
+
+.user-badge {
+    display: inline-block;
+    background-color: #202024;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    border: 1px solid #29292e;
+}
+
+.card {
+    background-color: #202024;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border: 1px solid #29292e;
+}
+
+h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #ffffff;
+}
+
+h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #c4c4cc;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #121214;
+    border: 1px solid #29292e;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    border-color: #04d361;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.btn {
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-align: center;
+}
+
+.btn-block { width: 100%; }
+.btn-success { background-color: #04d361; color: #000000; }
+.btn-success:disabled { background-color: #1d5435; color: #757575; }
+.btn-primary { background-color: #4895ef; color: #ffffff; }
+.btn-danger { background-color: #f72585; color: #ffffff; }
+.btn-outline { background-color: transparent; border: 2px solid #29292e; color: #e1e1e6; }
+.btn-selected { background-color: #e63946; border-color: #e63946; color: white; }
+.btn-link { background: none; color: #a8a8b3; font-size: 0.9rem; width: 100%; text-align: center; margin-top: 15px; text-decoration: underline;}
+
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    color: #7c7c8a;
+    font-size: 0.85rem;
+    position: relative;
+}
+
+.highlight { color: #04d361; font-weight: bold; }
+.text-center { text-align: center; }
+.text-warning { color: #ffb703; }
+.text-muted { color: #7c7c8a; font-size: 0.9rem; }
+.text-bold { font-weight: bold; }
+.pre-wrap { white-space: pre-wrap; }
+.mgt-10 { margin-top: 10px; }
+
+.player-list {
+    list-style: none;
+    background: #121214;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.player-list li {
+    padding: 12px;
+    border-bottom: 1px solid #29292e;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-list li.is-me {
+    background-color: #1a271f;
+    color: #04d361;
+}
+
+.badge {
+    background: #04d361;
+    color: black;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Kemaskini Gaya Lencana Peranan Baharu */
+.role-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.role-badge.sivil { background-color: #1d3557; color: #a8dadc; }
+.role-badge.imposter { background-color: #6a040f; color: #ffba08; }
+
+.word-card {
+    background: #121214;
+    padding: 20px;
+    border-radius: 6px;
+    text-align: center;
+    border-left: 5px solid #04d361;
+    margin-bottom: 20px;
+}
+.word-card .kategori { font-size: 0.95rem; color: #a8a8b3; margin-bottom: 15px; }
+
+/* Sistem Sembunyi Gabungan Peranan + Word */
+.secret-word-container {
+    margin-top: 10px;
+}
+
+.word-blur-box {
+    filter: blur(15px);
+    opacity: 0.02;
+    transition: all 0.15s ease-in-out;
+    padding: 15px 10px;
+    margin-bottom: 15px;
+    background: #1c1c1f;
+    border-radius: 6px;
+    border: 1px dashed #323238;
+}
+
+.word-blur-box.reveal {
+    filter: blur(0px);
+    opacity: 1;
+    background: #202024;
+    border: 1px solid #29292e;
+}
+
+.btn-reveal {
+    background-color: #29292e;
+    color: #ffffff;
+    border: 1px solid #323238;
+    width: 100%;
+}
+
+.btn-reveal:active {
+    background-color: #e63946;
+    color: #ffffff;
+}
+
+/* Selector Moden */
+.modern-selector-container {
+    margin-bottom: 20px;
+}
+
+.selector-label {
+    display: block;
+    font-size: 0.85rem;
+    color: #a8a8b3;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.modern-selector {
+    display: flex;
+    background-color: #121214;
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid #29292e;
+    gap: 4px;
+}
+
+.selector-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 10px 0;
+    color: #7c7c8a;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.selector-btn.active {
+    background-color: #04d361;
+    color: #000000;
+    box-shadow: 0 2px 6px rgba(4, 211, 97, 0.3);
+}
+
+.timer-box {
+    background: #ffb703;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.instruction {
+    font-size: 0.95rem;
+    color: #c4c4cc;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.voting-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.result-message {
+    background: #121214;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px dashed #7c7c8a;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.table-score {
+    width: 100%;
+    border-collapse: collapse;
+    background: #121214;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.table-score th, .table-score td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #29292e;
+}
+
+.table-score th { background: #29292e; color: #c4c4cc; }
+.table-score tr.is-me { color: #04d361; background: #1a271f; }
